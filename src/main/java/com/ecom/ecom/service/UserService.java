@@ -1,11 +1,12 @@
 package com.ecom.ecom.service;
-import com.ecom.ecom.model.*;
-import com.ecom.ecom.repository.*;
+
+import com.ecom.ecom.model.User;
+import com.ecom.ecom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -14,11 +15,11 @@ import java.util.Collections;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder; // ✅ Use PasswordEncoder here
 
     @Autowired
     public UserService(UserRepository userRepository,
-                       BCryptPasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder) { // ✅ Use PasswordEncoder here
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
