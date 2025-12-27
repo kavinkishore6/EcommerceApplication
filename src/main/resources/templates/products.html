@@ -1,0 +1,124 @@
+<!-- Product HTML -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Electrify</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link th:href="@{/img/logo.png}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg py-lg-0 px-lg-5" style="background-color: #1693e1">
+    <a th:href="@{/home}" class="navbar-brand">
+        <h1 class="fw-bold text-primary m-0">Electrify</h1>
+    </a>
+
+    <!-- Logout aligned to right -->
+    <div class="ms-auto">
+        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-link icon-btn" style="color: white">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+</nav>
+
+<!-- Product List -->
+<div class="container mt-4">
+    <h1 class="mb-4">Our Products</h1>
+
+    <div class="row g-4">
+        <div th:each="product : ${products}" class="col-md-3">
+            <div class="card h-100">
+
+                <!-- Null-safe image handling -->
+                <img th:if="${product.imageUrl}" th:src="${product.imageUrl}" class="card-img-top" alt="Product Image">
+                <img th:unless="${product.imageUrl}" src="/img/default.png" class="card-img-top" alt="Default Image">
+
+                <div class="card-body text-center">
+                    <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                    <p th:text="${product.description}">Description</p>
+                    <p class="fw-bold" th:text="'₹ ' + ${product.price}">Price</p>
+
+                    <form th:action="@{/cart/add}" method="post">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Start -->
+<footer class="footer bg-dark text-white py-4 mt-5">
+    <div class="container">
+        <div class="row gx-5">
+
+            <!-- About Us -->
+            <div class="col-md-4 mb-3">
+                <h4 class="text-primary" style="font-size: 1.25rem;">About Us</h4>
+                <p style="font-size: 0.875rem;">
+                    At Electrify, we believe technology should make life smarter, easier, and more exciting.
+                    We deliver innovative gadgets designed for everyday life.
+                </p>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="col-md-4 mb-3">
+                <h4 class="text-primary" style="font-size: 1.25rem;">Why Choose Us?</h4>
+                <ul style="list-style: none; padding-left: 0; font-size: 0.875rem;">
+                    <li>🔌 Latest Technology Gadgets</li>
+                    <li>🛡️ Trusted Quality Products</li>
+                    <li>🚚 Fast & Reliable Delivery</li>
+                    <li>💬 Dedicated Customer Support</li>
+                </ul>
+            </div>
+
+            <!-- Contact Us -->
+            <div class="col-md-4 mb-3">
+                <h4 class="text-primary" style="font-size: 1.25rem;">Contact Us</h4>
+                <p style="font-size: 0.875rem;">
+                    <i class="fa fa-phone-alt me-2"></i> +1234567890
+                </p>
+                <p style="font-size: 0.875rem;">
+                    <i class="fa fa-envelope me-2"></i> info@Electrify.com
+                </p>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-3">
+            <p style="font-size: 0.75rem;">&copy; 2025 Electrify. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+<!-- Footer End -->
+
+</body>
+</html>
